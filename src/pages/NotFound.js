@@ -1,6 +1,6 @@
 import React from 'react';
 
-class NotFound extends React.Component {
+export default class NotFound extends React.Component {
   render() {
     return (
       <div data-testid="page-not-found">
@@ -9,5 +9,3 @@ class NotFound extends React.Component {
     );
   }
 }
-
-export default NotFound;
