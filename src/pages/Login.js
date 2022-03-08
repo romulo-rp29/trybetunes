@@ -1,29 +1,30 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
-import './Login.css';
+import PropsTypes from 'prop-types';
 
 export default class Login extends React.Component {
   render() {
-    console.log(this.props);
-    const { createUser, userName, isEnterButtonDisabled, onInputChange } = this.props;
+    const {
+      userName,
+      isEnterButtonDisabled,
+      onInputChange,
+      handleEnterButtonClick,
+    } = this.props;
+
     return (
-      <div className="login" data-testid="page-login">
-        <div className="loginLogo">Login TrybeTunes</div>
-        <form className="loginForm" data-testid="login-name-input">
+      <div data-testid="page-login">
+        Login TrybeTunes
+        <form>
           <input
-            className="loginUserName"
             name="userName"
             data-testid="login-name-input"
-            type="text"
             onChange={ onInputChange }
             value={ userName }
           />
           <button
-            className="loginButton"
             type="submit"
             data-testid="login-submit-button"
-            onClick={ createUser }
             disabled={ isEnterButtonDisabled }
+            onClick={ handleEnterButtonClick }
           >
             Entrar
           </button>
@@ -32,3 +33,10 @@ export default class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  userName: PropsTypes.string.isRequired,
+  isEnterButtonDisabled: PropsTypes.bool.isRequired,
+  onInputChange: PropsTypes.func.isRequired,
+  handleEnterButtonClick: PropsTypes.func.isRequired,
+};
