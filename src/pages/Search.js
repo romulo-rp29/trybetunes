@@ -1,11 +1,26 @@
 import React from 'react';
+import Header from '../Components/Header';
+import Loading from '../Components/Loading';
 
 export default class Search extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      loading: false,
+    };
+  }
+
   render() {
-    console.log(this.props);
+    const {
+      loading,
+    } = this.state;
     return (
       <div data-testid="page-search">
-        <p>TrybeTunes Search</p>
+        <Header />
+        {
+          loading ? <Loading />
+            : (<p>TrybeTunes Search</p>)
+        }
       </div>
     );
   }
