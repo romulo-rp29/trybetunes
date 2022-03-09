@@ -8,7 +8,7 @@ export default class Header extends React.Component {
     super();
     this.state = {
       user: '',
-      loading: false,
+      loading: true,
     };
   }
 
@@ -30,11 +30,15 @@ export default class Header extends React.Component {
       <header data-testid="header-component">
         {
           loading ? <Loading />
-            : (<section data-testid="header-user-name">{ user }</section>)
+            : (
+              <div>
+                <section data-testid="header-user-name">{ user }</section>
+                <Link data-testid="link-to-search" to="/search">Search</Link>
+                <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
+                <Link data-testid="link-to-profile" to="/profile">Profile</Link>
+              </div>
+            )
         }
-        <Link data-testid="link-to-search" to="/search">Search</Link>
-        <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
-        <Link data-testid="link-to-profile" to="/profile">Profile</Link>
       </header>
     );
   }
