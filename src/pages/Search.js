@@ -1,83 +1,93 @@
 import React from 'react';
+import AlbumCard from '../Components/AlbumCard';
 import Header from '../Components/Header';
 import Loading from '../Components/Loading';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 export default class Search extends React.Component {
   constructor() {
     super();
     this.state = {
+      isSearchButtonDisabled: true,
+      artistSearch: '',
       artistName: '',
       loading: false,
-      isSearchButtonDisabled: true,
+      albums: [],
+      apiCall: false,
     };
   }
 
-  handleFillSearch = async () => {
-    const { artistName } = this.state;
-    await searchAlbumsAPI({ name: artistName });
+  onSearchButtonClick = async () => {
+    const { artistSearch } = this.state;
+    this.setState({ loading: true });
+    const results = await searchAlbumsAPI(artistSearch);
     this.setState({
-      artistName: '',
+      albums: results,
+      artistName: artistSearch,
+      artistSearch: '',
       loading: false,
+      apiCall: true,
     });
   }
 
-  handleSearchButtonClick = (event) => {
-    event.preventDefault();
-    this.setState({
-      loading: false,
-
-    }, this.handleFillSearch);
-  }
-
-  onInputChangeSearch = ({ target: { value } }) => {
+  onInputChangeSearch = ({ target }) => {
     const minSearchLength = 2;
-    if (value.length >= minSearchLength) {
+    if (target.value.length >= minSearchLength) {
       this.setState({
-        artistName: value,
         isSearchButtonDisabled: false,
+        artistSearch: target.value,
       });
     } else {
       this.setState({
-        artistName: value,
         isSearchButtonDisabled: true,
+        artistSearch: target.value,
       });
     }
   }
 
   render() {
-    const { artistName, isSearchButtonDisabled,
-      handleSearchButtonClick } = this.state;
+    const { artistName, isSearchButtonDisabled, artistSearch, albums,
+      loading, apiCall } = this.state;
 
-    const {
-      loading,
-    } = this.state;
     return (
-      <div data-testid="page-search">
+      <div>
         <Header />
+        <p>TrybeTunes Search</p>
         {
           loading ? <Loading />
             : (
-              <div>
-                <p>TrybeTunes Search</p>
-                <form>
-                  <input
-                    name="search"
-                    data-testid="search-artist-input"
-                    onChange={ this.onInputChangeSearch }
-                    value={ artistName }
-                  />
-                  <button
-                    type="submit"
-                    data-testid="search-artist-button"
-                    disabled={ isSearchButtonDisabled }
-                    onClick={ handleSearchButtonClick }
-                  >
-                    Pesquisar
-                  </button>
-                </form>
-              </div>
+              <form data-testid="page-search">
+                <input
+                  name="search"
+                  data-testid="search-artist-input"
+                  onChange={ this.onInputChangeSearch }
+                  value={ artistSearch }
+                />
+                <button
+                  type="button"
+                  data-testid="search-artist-button"
+                  disabled={ isSearchButtonDisabled }
+                  onClick={ this.onSearchButtonClick }
+                >
+                  Pesquisar
+                </button>
+              </form>
             )
         }
+        <h3>
+          {`Resultado de álbuns de: ${artistName}`}
+        </h3>
+        { apiCall && albums.length ? (
+          albums.map((album) => (
+            <AlbumCard
+              key={ album.collectionId }
+              artistName={ album.artistName }
+              collectionName={ album.collectionName }
+              artworkUrl100={ album.artworkUrl100 }
+              collectionId={ album.collectionId }
+            />))
+        )
+          : (<span>Nenhum álbum foi encontrado</span>) }
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { Switch } from 'react-router';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
 
