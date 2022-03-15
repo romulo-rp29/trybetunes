@@ -13,7 +13,6 @@ export default class Search extends React.Component {
       artistName: '',
       loading: false,
       albums: [],
-      apiCall: false,
     };
   }
 
@@ -26,7 +25,6 @@ export default class Search extends React.Component {
       artistName: artistSearch,
       artistSearch: '',
       loading: false,
-      apiCall: true,
     });
   }
 
@@ -47,7 +45,7 @@ export default class Search extends React.Component {
 
   render() {
     const { artistName, isSearchButtonDisabled, artistSearch, albums,
-      loading, apiCall } = this.state;
+      loading } = this.state;
 
     return (
       <div>
@@ -77,7 +75,7 @@ export default class Search extends React.Component {
         <h3>
           {`Resultado de álbuns de: ${artistName}`}
         </h3>
-        { apiCall && albums.length ? (
+        { albums.length ? (
           albums.map((album) => (
             <AlbumCard
               key={ album.collectionId }
