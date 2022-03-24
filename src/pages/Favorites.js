@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Components/Header';
 import Loading from '../Components/Loading';
+// import { addSong } from '../services/favoriteSongsAPI';
 
 export default class Favorites extends React.Component {
   render() {
