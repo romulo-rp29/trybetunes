@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class MusicCard extends Component {
   render() {
-<<<<<<< HEAD
-<<<<<<< HEAD
     const { music: { trackName, previewUrl, trackId } } = this.props;
-=======
-    const { trackName, previewUrl } = this.state;
->>>>>>> parent of 96a1c84... completed req7
-=======
-    const { music: { trackName, previewUrl } } = this.props;
->>>>>>> parent of 73d8d4a... feat: MusicCard, Favorites
     return (
       <div>
         <h3>{ trackName }</h3>
@@ -22,7 +15,6 @@ export default class MusicCard extends Component {
           </code>
           .
         </audio>
-<<<<<<< HEAD
         <label htmlFor={ trackId }>
           <input
             type="checkbox"
@@ -33,22 +25,18 @@ export default class MusicCard extends Component {
           />
           Favorita
         </label>
-=======
->>>>>>> parent of 73d8d4a... feat: MusicCard, Favorites
       </div>
     );
   }
 }
-<<<<<<< HEAD
 
 MusicCard.propTypes = {
   music: PropTypes.shape({
     trackName: PropTypes.string.isRequired,
     previewUrl: PropTypes.string.isRequired,
+    trackId: PropTypes.string.isRequired,
   }),
 };
 MusicCard.defaultProps = {
   music: {},
 };
-=======
->>>>>>> parent of 96a1c84... completed req7
