@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../Components/Header';
 import Loading from '../Components/Loading';
 
-export default class Favourites extends React.Component {
+export default class Favorites extends React.Component {
   constructor() {
     super();
     this.state = {
