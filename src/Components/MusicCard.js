@@ -27,6 +27,11 @@ export default class MusicCard extends Component {
       loading: false,
       favorited,
     });
+    await (favorited ? removeSong(music) : removeSong(music));
+    this.setState({
+      loading: false,
+      favorited,
+    });
   }
 
   favoriteSongs = async () => {
@@ -42,7 +47,6 @@ export default class MusicCard extends Component {
     this.setState({
       loading: false,
       favorited: favoriteSongs.some((song) => song.trackId === trackId),
-
     });
   }
 
