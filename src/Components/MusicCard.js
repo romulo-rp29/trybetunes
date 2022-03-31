@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
-import { addSong, /* getFavoriteSongs, */removeSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 export default class MusicCard extends Component {
   constructor() {
@@ -12,7 +12,9 @@ export default class MusicCard extends Component {
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => {
+    this.favoriteSongs();
+  }
 
   handleChange = async () => {
     const { music, favorited } = this.props;
@@ -24,6 +26,22 @@ export default class MusicCard extends Component {
     this.setState({
       loading: false,
       favorited,
+    });
+  }
+
+  favoriteSongs = async () => {
+    const { music: { trackId } } = this.props;
+    // Enquanto aguarda a resposta da API, exiba a mensagem Carregando...:
+    this.setState({
+      loading: true,
+    });
+
+    const favoriteSongs = await getFavoriteSongs();
+
+    // A lista recebida pela função getFavoriteSongs deve ser salva no estado da sua aplicação:
+    this.setState({
+      loading: false,
+      favorited: favoriteSongs.some((song) => song.trackId === trackId),
     });
   }
 
@@ -66,6 +84,7 @@ MusicCard.propTypes = {
     trackName: PropTypes.string.isRequired,
     previewUrl: PropTypes.string.isRequired,
     trackId: PropTypes.string.isRequired,
+
   }),
   favorited: PropTypes.bool.isRequired,
 };
