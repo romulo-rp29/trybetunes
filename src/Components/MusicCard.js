@@ -42,6 +42,7 @@ export default class MusicCard extends Component {
     this.setState({
       loading: false,
       favorited: favoriteSongs.some((song) => song.trackId === trackId),
+
     });
   }
 
