@@ -1,5 +1,7 @@
 # Projeto TrybeTunes!
 
+Projeto disponibilizado pela [Trybe](https://www.betrybe.com/) e executado por [romulo-rp29](https://github.com/romulo-rp29).
+
 ---
 
 # Habilidades
